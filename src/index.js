@@ -14,7 +14,10 @@ let pencilBtn = new DrawBtn(layer,500,50,'draw');
 pencilBtn.create();
 pencilBtn.kobj.on('click',function(){pencilBtn.onClickHandler();});
 
-
+pencilBtn.makeClearBtn(550,50,'black','white','clear')
+pencilBtn.clearObj.on('click',function(){
+    pencilBtn.clearLines();
+})
 
 
 layer.add(circ,message);

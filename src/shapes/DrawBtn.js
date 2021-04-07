@@ -41,12 +41,12 @@ export default class DrawBtn{
     }
 
     onClickHandler(){
-        console.log("clicked");
+        // console.log("clicked");
 
         if(this.is_active === false){
             this.is_active = true;
             this.kobj.getTag().fill("red");
-            console.log("active = ", this.is_active)
+            // console.log("active = ", this.is_active)
             this.handleDrawing();
         }
         else{
@@ -67,7 +67,7 @@ export default class DrawBtn{
         if(!this.is_active) return;
 
         mstage.on('mousedown',() => {
-            console.log("mouseDownthing")
+            // console.log("mouseDownthing")
             this.is_pointerDown = true;
             this.drawInitLine();
         })
@@ -82,7 +82,7 @@ export default class DrawBtn{
             this.drawLine();
         })
 
-        console.log("handleDrawing = ", this.is_pointerDown, " ", this.is_pointerMove);
+        // console.log("handleDrawing = ", this.is_pointerDown, " ", this.is_pointerMove);
     }
     drawInitLine(){
         if(!this.is_pointerDown) return;
@@ -90,23 +90,57 @@ export default class DrawBtn{
         let newPoint  = new Konva.Line({
             points : [pointer.x,pointer.y],
             stroke : "red",
-            strokeWidth : 5,
-            tension : 0
+            strokeWidth : 2,
+            tension : 0.3
         })
         this.lineObj.push(newPoint);
         this.layer.add(newPoint);
         this.kobj.zIndex(this.lineObj.length + 10);
+        this.clearObj.zIndex(this.lineObj.length + 10);
     }
 
     drawLine(){
         if(!this.is_pointerDown)  return ;
-        console.log("drawing")
+        // console.log("drawing")
         let pointer = mstage.getPointerPosition();
         let prevLine = this.lineObj[this.lineObj.length - 1];
         // console.log(prevLine.points());
         let newpoints = prevLine.points().concat([pointer.x,pointer.y]);
         prevLine.points(newpoints);
         this.layer.batchDraw();
+    }
+
+    makeClearBtn(x,y,bgcolor,tcolor,text){
+        let drawbtn = new Konva.Label({
+            x : x,
+            y : y,
+        });
+        
+        drawbtn.add(
+            new Konva.Tag({
+                fill : bgcolor
+            })
+        );
+        
+        drawbtn.add(
+            new Konva.Text({
+                fill: tcolor,
+                text : text,
+                padding : 10
+            })
+        );
+        this.layer.add(drawbtn);
+        this.clearObj = drawbtn;
+    }
+
+    clearLines(){
+        // console.log("yae cahla tha")
+        this.lineObj.forEach(obj => {
+            obj.destroy();
+        })
+        this.lineObj = [];
+        this.layer.draw();
+        // console.log("clear madi = ", this.lineObj )
     }
     
 

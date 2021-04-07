@@ -11806,12 +11806,11 @@ function () {
   }, {
     key: "onClickHandler",
     value: function onClickHandler() {
-      console.log("clicked");
-
+      // console.log("clicked");
       if (this.is_active === false) {
         this.is_active = true;
-        this.kobj.getTag().fill("red");
-        console.log("active = ", this.is_active);
+        this.kobj.getTag().fill("red"); // console.log("active = ", this.is_active)
+
         this.handleDrawing();
       } else {
         this.is_active = false;
@@ -11834,7 +11833,7 @@ function () {
       if (!this.is_active) return;
 
       _index.mstage.on('mousedown', function () {
-        console.log("mouseDownthing");
+        // console.log("mouseDownthing")
         _this.is_pointerDown = true;
 
         _this.drawInitLine();
@@ -11849,9 +11848,8 @@ function () {
         _this.is_pointerMove = true;
 
         _this.drawLine();
-      });
+      }); // console.log("handleDrawing = ", this.is_pointerDown, " ", this.is_pointerMove);
 
-      console.log("handleDrawing = ", this.is_pointerDown, " ", this.is_pointerMove);
     }
   }, {
     key: "drawInitLine",
@@ -11863,18 +11861,18 @@ function () {
       var newPoint = new _konva.default.Line({
         points: [pointer.x, pointer.y],
         stroke: "red",
-        strokeWidth: 5,
-        tension: 0
+        strokeWidth: 2,
+        tension: 0.3
       });
       this.lineObj.push(newPoint);
       this.layer.add(newPoint);
       this.kobj.zIndex(this.lineObj.length + 10);
+      this.clearObj.zIndex(this.lineObj.length + 10);
     }
   }, {
     key: "drawLine",
     value: function drawLine() {
-      if (!this.is_pointerDown) return;
-      console.log("drawing");
+      if (!this.is_pointerDown) return; // console.log("drawing")
 
       var pointer = _index.mstage.getPointerPosition();
 
@@ -11883,6 +11881,34 @@ function () {
       var newpoints = prevLine.points().concat([pointer.x, pointer.y]);
       prevLine.points(newpoints);
       this.layer.batchDraw();
+    }
+  }, {
+    key: "makeClearBtn",
+    value: function makeClearBtn(x, y, bgcolor, tcolor, text) {
+      var drawbtn = new _konva.default.Label({
+        x: x,
+        y: y
+      });
+      drawbtn.add(new _konva.default.Tag({
+        fill: bgcolor
+      }));
+      drawbtn.add(new _konva.default.Text({
+        fill: tcolor,
+        text: text,
+        padding: 10
+      }));
+      this.layer.add(drawbtn);
+      this.clearObj = drawbtn;
+    }
+  }, {
+    key: "clearLines",
+    value: function clearLines() {
+      // console.log("yae cahla tha")
+      this.lineObj.forEach(function (obj) {
+        obj.destroy();
+      });
+      this.lineObj = [];
+      this.layer.draw(); // console.log("clear madi = ", this.lineObj )
     }
   }]);
 
@@ -11917,6 +11943,10 @@ var pencilBtn = new _DrawBtn.default(layer, 500, 50, 'draw');
 pencilBtn.create();
 pencilBtn.kobj.on('click', function () {
   pencilBtn.onClickHandler();
+});
+pencilBtn.makeClearBtn(550, 50, 'black', 'white', 'clear');
+pencilBtn.clearObj.on('click', function () {
+  pencilBtn.clearLines();
 });
 layer.add(_shapes.circ, _shapes.message);
 mstage.add(layer); //general example functions
