@@ -20,7 +20,8 @@ pencilBtn.clearObj.on('click',function(){
 })
 
 
-layer.add(circ,message);
+layer.add(circ,message,rect1);
+rect1.zIndex(0);
 
 mstage.add(layer);
 
