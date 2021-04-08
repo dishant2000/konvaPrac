@@ -11720,16 +11720,11 @@ var rect1 = new _konva.default.Rect({
   y: 0,
   width: 800,
   height: 600,
-<<<<<<< HEAD
-  stroke: "#5eaaa8",
-  strokeWidth: 3
-=======
   fill: "#eeeeee",
   stroke: "black",
   //strokeWidth : 8,
   //cornerRadius : [0 , 20, 0, 20],
   draggable: false
->>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
 });
 exports.rect1 = rect1;
 var message = new _konva.default.Text({
@@ -11768,7 +11763,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var DrawBtn = /*#__PURE__*/function () {
+var DrawBtn =
+/*#__PURE__*/
+function () {
   function DrawBtn(layer, x, y, str) {
     _classCallCheck(this, DrawBtn);
 
@@ -11835,8 +11832,9 @@ var DrawBtn = /*#__PURE__*/function () {
 
       if (!this.is_active) return;
 
-      _index.mstage.on('mousedown', function () {
+      _index.mstage.on('mousedown', function (e) {
         // console.log("mouseDownthing")
+        if (e.target !== _index.mstage) return;
         _this.is_pointerDown = true;
 
         _this.drawInitLine();
@@ -11919,6 +11917,159 @@ var DrawBtn = /*#__PURE__*/function () {
 }();
 
 exports.default = DrawBtn;
+},{"konva":"node_modules/konva/lib/index.js","../index":"src/index.js"}],"src/SelRect/main.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _konva = _interopRequireDefault(require("konva"));
+
+var _index = require("../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SelRect =
+/*#__PURE__*/
+function () {
+  function SelRect(layer, x, y, str) {
+    _classCallCheck(this, SelRect);
+
+    this.layer = layer;
+    this.x = x;
+    this.y = y;
+    this.text = str;
+    this.is_active = false;
+    this.is_mousedown = false;
+    this.is_mousemove = false;
+    this.selArray = [];
+    this.currRect = false;
+    this.x1 = 0;
+    this.x2 = 0;
+    this.y1 = 0;
+    this.y2 = 0;
+  }
+
+  _createClass(SelRect, [{
+    key: "makeBtn",
+    value: function makeBtn() {
+      var drawbtn = new _konva.default.Label({
+        x: this.x,
+        y: this.y
+      });
+      drawbtn.add(new _konva.default.Tag({
+        fill: "black"
+      }));
+      drawbtn.add(new _konva.default.Text({
+        fill: 'white',
+        text: this.text,
+        padding: 10
+      }));
+      this.btn = drawbtn;
+    }
+  }, {
+    key: "create",
+    value: function create(obj) {
+      this.layer.add(obj);
+    }
+  }, {
+    key: "onClickHandler",
+    value: function onClickHandler() {
+      if (this.is_active) {
+        this.is_active = false;
+        this.btn.getTag().fill("black");
+
+        _index.mstage.off('mousedown');
+
+        _index.mstage.off('mousemove');
+
+        _index.mstage.off('mouseup');
+      } else {
+        console.log("active kiya");
+        this.is_active = true;
+        this.btn.getTag().fill("red");
+        this.makeselect();
+      }
+
+      this.layer.draw();
+    }
+  }, {
+    key: "makeselect",
+    value: function makeselect() {
+      var _this = this;
+
+      // console.log("make select = ", mstage);
+      _index.mstage.on('mousedown', function (e) {
+        _this.is_mousedown = true;
+        if (e.target !== _index.mstage) return;
+
+        _this.initRect();
+      });
+
+      _index.mstage.on('mousemove', function () {
+        _this.is_mousemove = true;
+
+        _this.makeRect();
+      });
+
+      _index.mstage.on('mouseup', function () {
+        _this.is_mouseup = true;
+        _this.is_mousedown = false;
+        if (_this.currRect) _this.currRect.destroy();
+        _this.currRect = false;
+
+        _this.layer.draw();
+      });
+    }
+  }, {
+    key: "initRect",
+    value: function initRect() {
+      if (!this.is_mousedown) return; // let x1,y1,x2,y2;
+
+      var currPointer = _index.mstage.getPointerPosition();
+
+      this.x1 = currPointer.x;
+      this.y1 = currPointer.y;
+      this.x2 = currPointer.x;
+      this.y2 = currPointer.y;
+      var rect = new _konva.default.Rect({
+        fill: "rgba(0,0,255,0.15)",
+        visible: true,
+        width: 0,
+        height: 0
+      });
+      this.currRect = rect;
+      this.create(this.currRect);
+    }
+  }, {
+    key: "makeRect",
+    value: function makeRect() {
+      if (!this.is_mousedown) return;
+      this.x2 = _index.mstage.getPointerPosition().x;
+      this.y2 = _index.mstage.getPointerPosition().y;
+      this.currRect.setAttrs({
+        x: Math.min(this.x1, this.x2),
+        y: Math.min(this.y1, this.y2),
+        width: Math.abs(this.x1 - this.x2),
+        height: Math.abs(this.y1 - this.y2),
+        visible: true
+      });
+      this.layer.batchDraw();
+    }
+  }]);
+
+  return SelRect;
+}();
+
+exports.default = SelRect;
 },{"konva":"node_modules/konva/lib/index.js","../index":"src/index.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -11932,6 +12083,8 @@ var _konva = _interopRequireDefault(require("konva"));
 var _shapes = require("../src/shapes/shapes");
 
 var _DrawBtn = _interopRequireDefault(require("./shapes/DrawBtn"));
+
+var _main = _interopRequireDefault(require("./SelRect/main"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11951,21 +12104,15 @@ pencilBtn.makeClearBtn(550, 50, 'black', 'white', 'clear');
 pencilBtn.clearObj.on('click', function () {
   pencilBtn.clearLines();
 });
-<<<<<<< HEAD
-layer.add(_shapes.rect1, _shapes.circ, _shapes.message);
-=======
-layer.add(_shapes.circ, _shapes.message, _shapes.rect1);
+var selBtn = new _main.default(layer, 400, 50, 'select');
+selBtn.makeBtn();
+selBtn.create(selBtn.btn);
+selBtn.btn.on('click', function () {
+  selBtn.onClickHandler();
+});
+layer.add(_shapes.circ, _shapes.message); // rect1.zIndex(0);
 
-_shapes.rect1.zIndex(0);
-
->>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
-mstage.add(layer); //general example functions
-// mstage.on('mousedown',function(){
-//     //console.log("mouseover hua hai");
-//     let mpointer = mstage.getPointerPosition();
-//     message.text(`${mpointer.x} and ${mpointer.y} -> mouseenter`);
-//     layer.draw();
-// })
+mstage.add(layer); //general example functions 
 
 _shapes.circ.on('mouseover', function () {
   // console.log("mouseover");
@@ -11978,7 +12125,7 @@ _shapes.circ.on('mouseout', function () {
   this.fill('#a3d2ca');
   layer.draw();
 });
-},{"konva":"node_modules/konva/lib/index.js","../src/shapes/shapes":"src/shapes/shapes.js","./shapes/DrawBtn":"src/shapes/DrawBtn.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"konva":"node_modules/konva/lib/index.js","../src/shapes/shapes":"src/shapes/shapes.js","./shapes/DrawBtn":"src/shapes/DrawBtn.js","./SelRect/main":"src/SelRect/main.js"}],"C:/Users/dishant/AppData/Roaming/nvm/v14.15.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12006,11 +12153,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "65125" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50454" + '/');
->>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -12041,9 +12184,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
+      } else {
+        window.location.reload();
       }
     }
 
@@ -12186,5 +12328,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["C:/Users/dishant/AppData/Roaming/nvm/v14.15.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map

@@ -1,0 +1,5 @@
+1.  intersecting object detection and preventing toolbar 
+    by making group obj (a possible sol for that) or may be put it on the
+    another layer.
+2.  boundary detection and preventing unwanted behaviour
+3.  when one is active disable other functionality.

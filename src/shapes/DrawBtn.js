@@ -65,9 +65,9 @@ export default class DrawBtn{
 
     handleDrawing(){
         if(!this.is_active) return;
-
-        mstage.on('mousedown',() => {
+        mstage.on('mousedown',(e) => {
             // console.log("mouseDownthing")
+            if(e.target !== mstage) return;
             this.is_pointerDown = true;
             this.drawInitLine();
         })
