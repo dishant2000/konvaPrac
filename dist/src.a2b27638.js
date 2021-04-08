@@ -11716,15 +11716,12 @@ var circ = new _konva.default.Circle({
 });
 exports.circ = circ;
 var rect1 = new _konva.default.Rect({
-  x: 200,
-  y: 200,
-  width: 100,
-  height: 100,
-  fill: "#a3d2ca",
+  x: 0,
+  y: 0,
+  width: 800,
+  height: 600,
   stroke: "#5eaaa8",
-  strokeWidth: 8,
-  cornerRadius: [0, 20, 0, 20],
-  draggable: true
+  strokeWidth: 3
 });
 exports.rect1 = rect1;
 var message = new _konva.default.Text({
@@ -11862,7 +11859,7 @@ function () {
         points: [pointer.x, pointer.y],
         stroke: "red",
         strokeWidth: 2,
-        tension: 0.3
+        tension: 0
       });
       this.lineObj.push(newPoint);
       this.layer.add(newPoint);
@@ -11948,7 +11945,7 @@ pencilBtn.makeClearBtn(550, 50, 'black', 'white', 'clear');
 pencilBtn.clearObj.on('click', function () {
   pencilBtn.clearLines();
 });
-layer.add(_shapes.circ, _shapes.message);
+layer.add(_shapes.rect1, _shapes.circ, _shapes.message);
 mstage.add(layer); //general example functions
 // mstage.on('mousedown',function(){
 //     //console.log("mouseover hua hai");
@@ -11996,7 +11993,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65295" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65125" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

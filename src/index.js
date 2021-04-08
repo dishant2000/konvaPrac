@@ -5,6 +5,7 @@ export const mstage = new Konva.Stage({
     container : "mcontainer",
     width : 800,
     height: 600,
+    
 })
 
 const layer = new Konva.Layer({
@@ -20,7 +21,7 @@ pencilBtn.clearObj.on('click',function(){
 })
 
 
-layer.add(circ,message);
+layer.add(rect1,circ,message);
 
 mstage.add(layer);
 

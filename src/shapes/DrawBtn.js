@@ -91,7 +91,7 @@ export default class DrawBtn{
             points : [pointer.x,pointer.y],
             stroke : "red",
             strokeWidth : 2,
-            tension : 0.3
+            tension : 0
         })
         this.lineObj.push(newPoint);
         this.layer.add(newPoint);
