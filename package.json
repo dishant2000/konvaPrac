@@ -8,9 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "dishant2000 <kumawatdishant90@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "konva": "^7.2.5"
-  }
+  },
+  "repository": "https://github.com/dishant2000/konvaPrac.git"
 }
