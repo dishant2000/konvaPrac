@@ -18,14 +18,13 @@ let  circ = new Konva.Circle({
 let rect1 = new Konva.Rect({
     x : 200,
     y : 200,
-    width : 100,
-    height : 100,
-    fill : "#a3d2ca",
-    stroke : "#5eaaa8",
-    strokeWidth : 8,
-    cornerRadius : [0 , 20, 0, 20],
+    width : 800,
+    height : 600,
+    fill : "#eeeeee",
+    stroke : "black",
+    //strokeWidth : 8,
+    //cornerRadius : [0 , 20, 0, 20],
     draggable : true,
-    
 })
 
 let message = new Konva.Text({
