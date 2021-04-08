@@ -20,8 +20,11 @@ let rect1 = new Konva.Rect({
     y : 0,
     width : 800,
     height : 600,
-    stroke : "#5eaaa8",
-    strokeWidth : 3,
+    fill : "#eeeeee",
+    stroke : "black",
+    //strokeWidth : 8,
+    //cornerRadius : [0 , 20, 0, 20],
+    draggable : false,
 })
 
 let message = new Konva.Text({

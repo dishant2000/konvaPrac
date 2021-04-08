@@ -11720,8 +11720,16 @@ var rect1 = new _konva.default.Rect({
   y: 0,
   width: 800,
   height: 600,
+<<<<<<< HEAD
   stroke: "#5eaaa8",
   strokeWidth: 3
+=======
+  fill: "#eeeeee",
+  stroke: "black",
+  //strokeWidth : 8,
+  //cornerRadius : [0 , 20, 0, 20],
+  draggable: false
+>>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
 });
 exports.rect1 = rect1;
 var message = new _konva.default.Text({
@@ -11760,9 +11768,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var DrawBtn =
-/*#__PURE__*/
-function () {
+var DrawBtn = /*#__PURE__*/function () {
   function DrawBtn(layer, x, y, str) {
     _classCallCheck(this, DrawBtn);
 
@@ -11945,7 +11951,14 @@ pencilBtn.makeClearBtn(550, 50, 'black', 'white', 'clear');
 pencilBtn.clearObj.on('click', function () {
   pencilBtn.clearLines();
 });
+<<<<<<< HEAD
 layer.add(_shapes.rect1, _shapes.circ, _shapes.message);
+=======
+layer.add(_shapes.circ, _shapes.message, _shapes.rect1);
+
+_shapes.rect1.zIndex(0);
+
+>>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
 mstage.add(layer); //general example functions
 // mstage.on('mousedown',function(){
 //     //console.log("mouseover hua hai");
@@ -11965,7 +11978,7 @@ _shapes.circ.on('mouseout', function () {
   this.fill('#a3d2ca');
   layer.draw();
 });
-},{"konva":"node_modules/konva/lib/index.js","../src/shapes/shapes":"src/shapes/shapes.js","./shapes/DrawBtn":"src/shapes/DrawBtn.js"}],"C:/Users/dishant/AppData/Roaming/nvm/v14.15.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"konva":"node_modules/konva/lib/index.js","../src/shapes/shapes":"src/shapes/shapes.js","./shapes/DrawBtn":"src/shapes/DrawBtn.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11993,7 +12006,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "65125" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50454" + '/');
+>>>>>>> 5fa5b7ba235278b05e56ee35b32e4297afaf6524
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -12024,8 +12041,9 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else {
-        window.location.reload();
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
       }
     }
 
@@ -12168,5 +12186,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/dishant/AppData/Roaming/nvm/v14.15.3/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map
