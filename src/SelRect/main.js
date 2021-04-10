@@ -59,7 +59,7 @@ export default class SelRect{
 
         }
         else{
-            console.log("active kiya")
+            // console.log("active kiya")
             this.is_active = true;
             this.btn.getTag().fill("red");
             this.makeselect();
@@ -70,7 +70,7 @@ export default class SelRect{
         // console.log("make select = ", mstage);
         mstage.on('mousedown',(e)=>{
             if(e.target !== mstage) return;
-            console.log("mousedown")
+            // console.log("mousedown")
             this.is_mousedown = true;
             this.initRect();
         })
@@ -82,11 +82,11 @@ export default class SelRect{
         })
         mstage.on('mouseup',(e)=>{
             if(!this.is_active) return;
-            console.log("mouseup")
+            // console.log("mouseup")
             this.is_mouseup = true;
             this.is_mousedown = false;
             this.detectInterSection();
-            console.log("destroy karu kya")
+            // console.log("destroy karu kya")
             // if(this.currRect)
             //     this.currRect.destroy();
             // this.currRect = false;
@@ -142,7 +142,7 @@ export default class SelRect{
             return;
         }
         setTimeout(() => {
-            console.log("yae Chala tha");
+            // console.log("yae Chala tha");
             this.currRect.visible(false);
             this.layer.batchDraw();
           });
@@ -152,7 +152,7 @@ export default class SelRect{
             console.log(shape.getClientRect());
             return Konva.Util.haveIntersection(currBox,shape.getClientRect());
         })
-        console.log(selected, " ", shapes);
+        // console.log(selected, " ", shapes);
         this.transformObj = new Konva.Transformer();
         this.layer.add(this.transformObj)
         this.transformObj.nodes(selected);
