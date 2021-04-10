@@ -24,7 +24,7 @@ pencilBtn.clearObj.on('click',function(){
 let selBtn = new SelRect(layer,400,50,'select');
 selBtn.makeBtn();
 selBtn.create(selBtn.btn);
-selBtn.btn.on('click',function(){
+selBtn.btn.on('click',function(e){
     selBtn.onClickHandler();
 })
 layer.add(circ,message);

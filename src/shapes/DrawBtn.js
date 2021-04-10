@@ -18,6 +18,7 @@ export default class DrawBtn{
         let drawbtn = new Konva.Label({
             x : this.x,
             y : this.y,
+            name : 'toolbar'
         });
         
         drawbtn.add(
@@ -114,6 +115,7 @@ export default class DrawBtn{
         let drawbtn = new Konva.Label({
             x : x,
             y : y,
+            name : 'toolbar'
         });
         
         drawbtn.add(
